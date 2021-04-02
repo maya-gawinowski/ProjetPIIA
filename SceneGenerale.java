@@ -65,14 +65,14 @@ public class SceneGenerale extends Application {
 		agendaMenu.getChildren().add(labelAgenda);
 		agendaMenu.getChildren().add(consAgenda);
 		agendaMenu.getChildren().add(addEvent);
-		agendaMenu.setPrefSize(200, 300);		
+		agendaMenu.setPrefSize(300, 300);		
 		agendaMenu.setAlignment(Pos.TOP_CENTER);
 
 		VBox herbierMenu = new VBox();
 		herbierMenu.getChildren().add(labelPlantes);
 		herbierMenu.getChildren().add(consHerbier);
 		herbierMenu.getChildren().add(addPlante);
-		herbierMenu.setPrefSize(200, 450);		
+		herbierMenu.setPrefSize(300, 450);		
 		herbierMenu.setAlignment(Pos.TOP_CENTER);
 		
 		
@@ -81,8 +81,8 @@ public class SceneGenerale extends Application {
 		menu.getChildren().add(agendaMenu);	
 		menu.getChildren().add(herbierMenu);	
 		Insets menuInset = new Insets(20, 0, 20, 0);
-		menu.setPadding(menuInset);
-		menu.setPrefSize(200, 900);		
+		menu.setPadding(menuInset);	
+		menu.setMinSize(300, 900);
 		menu.setAlignment(Pos.CENTER);
 		menu.setBackground(new Background(new BackgroundFill(Paint.valueOf("LIGHTGRAY"), CornerRadii.EMPTY, Insets.EMPTY)));
 
