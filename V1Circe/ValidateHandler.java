@@ -1,5 +1,6 @@
-package V1;
+package Plants;
 
+import Plants.Herbier;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Popup;

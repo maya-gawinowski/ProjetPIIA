@@ -1,4 +1,4 @@
-package V1;
+package Plants;
 
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors

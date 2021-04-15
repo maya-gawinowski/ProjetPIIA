@@ -1,11 +1,8 @@
-package V1;
+package Plants;
 
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-
-import TP3.BoutonHandler;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,6 +28,8 @@ import javafx.scene.layout.BackgroundFill;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.calendarfx.view.CalendarView;
+
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.*; 
@@ -38,12 +37,33 @@ import javafx.scene.paint.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.BackgroundFill;
+
 public class Herbier extends Application {
+	
+
+
 	private VBox contenu;
 	private Scene scene;
 	private VBox menu;
 	private HBox box1;
-	
+	CalendarView agenda = new CalendarView();
 	
 	private ArrayList<ArrayList<String>> tableauCM = new ArrayList<ArrayList<String>>(); 
 	private ArrayList<ArrayList<String>> tableauKG = new ArrayList<ArrayList<String>>(); 
@@ -53,7 +73,7 @@ public class Herbier extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setTitle("Fitts test");
+		primaryStage.setTitle("Plant's");
 		myStage = primaryStage;
 		
 		// BOITE PRINCIPALE
@@ -61,20 +81,43 @@ public class Herbier extends Application {
 		// SET SCENE
 		scene = new Scene(root,1000,800,Color.LIGHTGREEN);
 		
-		// BANDEROLE EN HAUT DE LA PAGE
-		Label titre = new Label("Plan't");
-		titre.setFont(new Font("Arial",40));
-		titre.setTextFill(Color.BLACK);
+		//titre et sa HBox
+		Label title = new Label("Plan't");
+		title.setFont(new Font("Arial",40));
+		title.setTextFill(Color.BLACK);
+		HBox topScreenLeft = new HBox();
+		topScreenLeft.setPrefSize(1800, 50);
+		topScreenLeft.getChildren().add(title);		
+		Insets insetTopScreenLeft = new Insets(10, 10, 20, 10);
+		topScreenLeft.setPadding(insetTopScreenLeft);
+		topScreenLeft.setAlignment(Pos.BOTTOM_LEFT);
 		
+		//bouton accueil et sa HBox
+		Button accueilButton = new Button("Accueil");
+		accueilHandler accH = new accueilHandler(this);
+		accueilButton.setOnAction((EventHandler<ActionEvent>) accH);
+		HBox topScreenRight = new HBox();
+		topScreenRight.setPrefSize(1800, 100);
+		topScreenRight.getChildren().add(accueilButton);		
+		Insets insetTopScreenRight = new Insets(10, 10, 10, 10);
+		topScreenRight.setPadding(insetTopScreenRight);
+		topScreenRight.setAlignment(Pos.CENTER_RIGHT);	
+	
+		// BANDEROLE EN HAUT DE LA PAGE
 		box1 = new HBox();
-		box1.getChildren().add(titre);
+		box1.setPrefSize(1800, 100);
+		box1.getChildren().add(topScreenLeft);
+		box1.getChildren().add(topScreenRight);
 		box1.setBackground(new Background(new BackgroundFill(Color.PALEGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 		box1.setPadding(new Insets(30,30,30,30));
 		
 		// CONTENU DU CENTRE DE LA PAGE
 		HBox box2 = new HBox(); // boite qui contient l'ensemble
-		menu = new VBox(); // boite qui contient le menu sur la gauche
-		contenu = new VBox(); // boite qui contient le contenu changeant à droite
+		box2.setPrefSize(1800, 900);
+		// boite qui contient le menu sur la gauche
+		menu = new VBox(); 
+		// boite qui contient le contenu changeant à droite
+		contenu = new VBox(); 
 		box2.getChildren().add(menu); 
 		box2.getChildren().add(contenu);
 		
@@ -88,33 +131,15 @@ public class Herbier extends Application {
 		Label agenda = new Label("AGENDA");
 		agenda.setFont(new Font("Arial",20));
 		agenda.setPadding(new Insets(20,20,20,20));
-			
-		Button consagenda = new Button("Consulter");
-		Button addevent = new Button("Ajouter événement");
 		
-		consagenda.setOnAction(new EventHandler<ActionEvent>() {
-			@Override 
-			public void handle(ActionEvent e) {
-				contenu.getChildren().removeAll(contenu.getChildren());
-				//System.out.println("consagenda");
-				Label test = new Label("consulter agenda");
-				VBox boxou = new VBox();
-				boxou.getChildren().add(test);
-				contenu.getChildren().add(boxou);
-			}
-		});
+		Button consAgenda = new Button("Consulter");
+		agendaHandler aH = new agendaHandler(this);
+		consAgenda.setOnAction((EventHandler<ActionEvent>) aH);
 		
-		addevent.setOnAction(new EventHandler<ActionEvent>() {
-			@Override 
-			public void handle(ActionEvent e) {
-				contenu.getChildren().removeAll(contenu.getChildren());
-				//System.out.println("addevent");
-				Label test = new Label("Ajouter évènement");
-				VBox boxou = new VBox();
-				boxou.getChildren().add(test);
-				contenu.getChildren().add(boxou);
-			}
-		});
+		newEventHandler neH = new newEventHandler(this);
+		Button addEvent = new Button("Ajouter événement");
+		addEvent.setOnAction((EventHandler<ActionEvent>) neH);
+		
 		
 			//PLANTES
 		Label plante = new Label("PLANTE");
@@ -129,22 +154,11 @@ public class Herbier extends Application {
 		
 		AjoutPlanteHandler ap = new AjoutPlanteHandler(this);
 		ajoutplante.setOnAction(ap);
-		/*ajoutplante.setOnAction(new EventHandler<ActionEvent>() {
-			@Override 
-			public void handle(ActionEvent e) {
-				contenu.getChildren().removeAll(contenu.getChildren());
-				//System.out.println("addevent");
-				Label test = new Label("Ajouter plante");
-				VBox boxou = new VBox();
-				boxou.getChildren().add(test);
-				contenu.getChildren().add(boxou);
-			}
-		});*/
 		
 		// REMPLIR LE MENU
 		menu.getChildren().add(agenda);
-		menu.getChildren().add(consagenda);
-		menu.getChildren().add(addevent);
+		menu.getChildren().add(consAgenda);
+		menu.getChildren().add(addEvent);
 		menu.getChildren().add(plante);
 		menu.getChildren().add(consplante);
 		menu.getChildren().add(ajoutplante);
@@ -720,8 +734,25 @@ public class Herbier extends Application {
 		contentBis.getChildren().add(valider);
 		contentBis.setPadding(new Insets(30,30,10,30));
 		contenu.getChildren().add(contentBis);
-		}
+	}
 
+	
+	/**
+	 * @return the contenu
+	 */
+	public VBox getContenu() {
+		return contenu;
+	}
+
+	/**
+	 * @param contenu the contenu to set
+	 */
+	public void setContenu(VBox contenu) {
+		this.contenu = contenu;
+	}
+	
+	
+	
 	public static void main(String[] args) {
 		Application.launch(args);
 	}

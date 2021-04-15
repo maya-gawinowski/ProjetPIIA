@@ -1,4 +1,4 @@
-package V1;
+package Plants;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -17,7 +17,7 @@ class Ecriture
   
   
   
-  public static void ecrire(String path, String text) 
+  public void ecrire(String path, String text) 
   {
       System.out.println("écriture : "+text); 
       System.out.println(path);

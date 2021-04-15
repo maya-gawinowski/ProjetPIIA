@@ -1,4 +1,4 @@
-package V1;
+package Plants;
 
 
 import javafx.application.Application;
@@ -13,9 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.stage.Popup;
 import javafx.scene.control.Button;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -26,7 +23,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
 
 
 public class Mere extends Application {

@@ -1,4 +1,4 @@
-package V1;
+package Plants;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

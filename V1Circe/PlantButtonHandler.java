@@ -1,12 +1,10 @@
-package V1;
+package Plants;
 
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class PlantButtonHandler implements
