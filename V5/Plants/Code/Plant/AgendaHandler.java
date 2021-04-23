@@ -13,21 +13,19 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 	private VBox contenu;
     
 	
-	public AgendaHandler(Herbier H) {
+	public AgendaHandler(Herbier H, VBox C) {
 		herbier = H;
-		contenu = new VBox();
+		contenu = C;
 	}
 	
 
 	@Override
 	public void handle(ActionEvent arg0) {
-		herbier.emptyContenu();
-		
+		contenu.getChildren().removeAll(contenu.getChildren());
 		contenu.setPrefSize(1000, 900);
 		CalendarView myAgenda = herbier.getAgenda();
 		myAgenda.autosize();
 		contenu.getChildren().add(myAgenda);
-		herbier.setContenu(contenu);
 	}
 
 }

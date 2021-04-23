@@ -4,7 +4,6 @@ package Plant;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
@@ -42,22 +41,27 @@ public class Herbier extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// BOITE PRINCIPALE
 		VBox root = new VBox();
+		root.setPrefSize(1800, 1000);
+		
 		// SET SCENE
-		scene = new Scene(root,1800,900,Color.LIGHTGREEN);
+		scene = new Scene(root,1800,1000,Color.LIGHTGREEN);
 		
 		// boite qui contient le contenu changeant à droite
 		contenu = new VBox(); 
+		contenu.setPrefSize(1600, 900);
+		contenu.setMinSize(900, 900);			
 		
 		//titre et sa HBox
 		Label title = new Label("Plan't");
 		title.setFont(new Font("Arial",40));
 		title.setTextFill(Color.BLACK);
+		
 		HBox topScreenLeft = new HBox();
-		topScreenLeft.setPrefSize(1800, 50);
+		topScreenLeft.setPrefSize(1800, 100);
 		topScreenLeft.getChildren().add(title);		
-		Insets insetTopScreenLeft = new Insets(10, 10, 20, 10);
-		topScreenLeft.setPadding(insetTopScreenLeft);
+		topScreenLeft.setPadding(new Insets(0, 0, 5, 5));
 		topScreenLeft.setAlignment(Pos.BOTTOM_LEFT);
+
 		
 		//bouton accueil et sa HBox
 		Button accueilButton = new Button("Accueil");
@@ -66,18 +70,19 @@ public class Herbier extends Application {
 		
 		HBox topScreenRight = new HBox();
 		topScreenRight.setPrefSize(1800, 100);
-		topScreenRight.getChildren().add(accueilButton);		
-		Insets insetTopScreenRight = new Insets(10, 10, 10, 10);
-		topScreenRight.setPadding(insetTopScreenRight);
+		topScreenRight.getChildren().add(accueilButton);	
+		topScreenRight.setPadding(new Insets(0, 15, 0, 0));
 		topScreenRight.setAlignment(Pos.CENTER_RIGHT);	
 	
 		// BANDEROLE EN HAUT DE LA PAGE
 		box1 = new HBox();
 		box1.setPrefSize(1800, 100);
+		box1.setMinSize(400, 100);
 		box1.getChildren().add(topScreenLeft);
 		box1.getChildren().add(topScreenRight);
+		box1.setPadding(new Insets(0,0,0,0));
 		box1.setBackground(new Background(new BackgroundFill(Color.PALEGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-		box1.setPadding(new Insets(30,30,30,30));
+		
 		
 		// CONTENU DU CENTRE DE LA PAGE
 		HBox box2 = new HBox(); // boite qui contient l'ensemble
@@ -88,57 +93,60 @@ public class Herbier extends Application {
 		box2.getChildren().add(menu); 
 		box2.getChildren().add(contenu);
 		
-		
 		// APPARENCE MENU
 		menu.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
-		menu.setAlignment(Pos.BASELINE_CENTER);
+		menu.setAlignment(Pos.TOP_CENTER);
+		menu.setMinSize(220, 800);
 		
 		// REMPLIR MENU
 			//AGENDA
 		Label agenda = new Label("AGENDA");
 		agenda.setFont(new Font("Arial",20));
-		agenda.setPadding(new Insets(20,20,20,20));
 
 		Button addEvent = new Button("Ajouter événement");
 		NewEventHandler neH = new NewEventHandler(this);
 		addEvent.setOnAction(neH);
 		
 		Button consAgenda = new Button("Consulter");
-		AgendaHandler aH = new AgendaHandler(this);
+		AgendaHandler aH = new AgendaHandler(this, contenu);
 		consAgenda.setOnAction(aH);
 		
+		VBox actionAgenda = new VBox();
+		actionAgenda.setAlignment(Pos.CENTER);
+		actionAgenda.setPadding(new Insets(40,0,40,0)); 
+		actionAgenda.getChildren().add(agenda);
+		actionAgenda.getChildren().add(consAgenda);	
+		actionAgenda.getChildren().add(addEvent);
 		
 			//PLANTES
 		Label plante = new Label("PLANTE");
 		plante.setFont(new Font("Arial",20));
-		plante.setPadding(new Insets(20,20,20,20));
 		
-		Button consplante = new Button("Consulter");
+		Button consPlante = new Button("Consulter");
 		HerbierHandler hh = new HerbierHandler(this,contenu, scene, menu, box1);
-		consplante.setOnAction(hh);
+		consPlante.setOnAction(hh);
 		
-		Button ajoutplante = new Button("Ajouter");
+		Button ajoutPlante = new Button("Ajouter");
 		AjoutPlanteHandler ap = new AjoutPlanteHandler(this,contenu);
-		ajoutplante.setOnAction(ap);
+		ajoutPlante.setOnAction(ap);
+		
+		VBox actionPlante = new VBox();
+		actionPlante.setAlignment(Pos.CENTER);
+		actionPlante.setPadding(new Insets(40,0,40,0)); 
+		actionPlante.getChildren().add(plante);
+		actionPlante.getChildren().add(consPlante);
+		actionPlante.getChildren().add(ajoutPlante);	
 		
 		
 		// REMPLIR LE MENU
-		menu.getChildren().add(agenda);
-		menu.getChildren().add(consAgenda);
-		menu.getChildren().add(addEvent);
-		menu.getChildren().add(plante);
-		menu.getChildren().add(consplante);
-		menu.getChildren().add(ajoutplante);
-		
-		menu.setPadding(new Insets(25,30,1000,30));
+		menu.getChildren().add(actionAgenda);
+		menu.getChildren().add(actionPlante);
+		menu.setPadding(new Insets(50,0,0,0)); 
 		
 		
 		// REMPLIR ROOT
 		root.getChildren().add(box1);
 		root.getChildren().add(box2);
-		
-		
-		
 		
 		
 		
@@ -317,13 +325,8 @@ public class Herbier extends Application {
 		this.contenu = c;
 		Label l = new Label ("YO");
 		this.contenu.getChildren().add(l);
-		System.out.println("HE");
 	}
 	
-	public void emptyContenu() {
-		contenu.getChildren().removeAll(contenu.getChildren());
-	}
-
 	public static void main(String[] args) {
 		Application.launch(args);
 	}
