@@ -310,9 +310,9 @@ public class Herbier extends Application {
 	/**
 	 * @param contenu the contenu to set
 	 */
-	public void setContenu(VBox contenu) {
+	public void setContenu(VBox c) {
 		this.contenu.getChildren().removeAll(contenu.getChildren());
-		this.contenu = contenu;
+		this.contenu = c;
 	}
 	
 
