@@ -25,7 +25,6 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 
 	@Override
 	public void handle(ActionEvent arg0) {
-		System.out.println("trace1");
 		contenu.getChildren().removeAll(contenu.getChildren());
 		
 		VBox dayAdvice = new VBox();

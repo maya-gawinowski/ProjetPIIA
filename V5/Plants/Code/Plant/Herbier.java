@@ -4,6 +4,7 @@ package Plant;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
@@ -60,6 +61,9 @@ public class Herbier extends Application {
 		
 		//bouton accueil et sa HBox
 		Button accueilButton = new Button("Accueil");
+		AccueilHandler accH = new AccueilHandler(this,contenu);
+		accueilButton.setOnAction(accH);
+		
 		HBox topScreenRight = new HBox();
 		topScreenRight.setPrefSize(1800, 100);
 		topScreenRight.getChildren().add(accueilButton);		
@@ -96,16 +100,26 @@ public class Herbier extends Application {
 		agenda.setPadding(new Insets(20,20,20,20));
 
 		Button addEvent = new Button("Ajouter événement");
+		NewEventHandler neH = new NewEventHandler(this);
+		addEvent.setOnAction(neH);
+		
 		Button consAgenda = new Button("Consulter");
+		AgendaHandler aH = new AgendaHandler(this);
+		consAgenda.setOnAction(aH);
 		
 		
 			//PLANTES
 		Label plante = new Label("PLANTE");
 		plante.setFont(new Font("Arial",20));
 		plante.setPadding(new Insets(20,20,20,20));
-		Button consplante = new Button("Consulter");
-		Button ajoutplante = new Button("Ajouter");
 		
+		Button consplante = new Button("Consulter");
+		HerbierHandler hh = new HerbierHandler(this,contenu, scene, menu, box1);
+		consplante.setOnAction(hh);
+		
+		Button ajoutplante = new Button("Ajouter");
+		AjoutPlanteHandler ap = new AjoutPlanteHandler(this,contenu);
+		ajoutplante.setOnAction(ap);
 		
 		
 		// REMPLIR LE MENU
@@ -124,17 +138,6 @@ public class Herbier extends Application {
 		root.getChildren().add(box2);
 		
 		
-		//On creer les listener et leur handler
-		HerbierHandler hh = new HerbierHandler(this,contenu, scene, menu, box1);
-		consplante.setOnAction(hh);
-		AjoutPlanteHandler ap = new AjoutPlanteHandler(this,contenu);
-		ajoutplante.setOnAction(ap);
-		AccueilHandler accH = new AccueilHandler(this,contenu);
-		accueilButton.setOnAction(accH);
-		AgendaHandler aH = new AgendaHandler(this);
-		consAgenda.setOnAction(aH);
-		NewEventHandler neH = new NewEventHandler(this);
-		addEvent.setOnAction(neH);
 		
 		
 		
@@ -311,10 +314,15 @@ public class Herbier extends Application {
 	 * @param contenu the contenu to set
 	 */
 	public void setContenu(VBox c) {
-		this.contenu.getChildren().removeAll(contenu.getChildren());
 		this.contenu = c;
+		Label l = new Label ("YO");
+		this.contenu.getChildren().add(l);
+		System.out.println("HE");
 	}
 	
+	public void emptyContenu() {
+		contenu.getChildren().removeAll(contenu.getChildren());
+	}
 
 	public static void main(String[] args) {
 		Application.launch(args);

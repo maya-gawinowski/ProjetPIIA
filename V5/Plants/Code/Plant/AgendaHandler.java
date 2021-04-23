@@ -21,7 +21,8 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 
 	@Override
 	public void handle(ActionEvent arg0) {
-		contenu.getChildren().removeAll(contenu.getChildren());
+		herbier.emptyContenu();
+		
 		contenu.setPrefSize(1000, 900);
 		CalendarView myAgenda = herbier.getAgenda();
 		myAgenda.autosize();
