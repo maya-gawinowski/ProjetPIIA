@@ -1,0 +1,5 @@
+1:Bananier
+2:Bananas
+rempotage:25/05/2020
+mesures:20/03/2021;30 cm
+mesures:20/04/2020;50 cm

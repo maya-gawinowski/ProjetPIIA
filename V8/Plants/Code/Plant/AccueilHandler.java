@@ -1,5 +1,7 @@
 package Plant;
 
+import java.time.LocalDate;
+
 import com.calendarfx.view.CalendarView;
 
 import javafx.event.ActionEvent;
@@ -52,14 +54,13 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 		//PARTIE GAUCHE
 			//boite en haut à gauche
 		
+		herbier.getAgendaVue().refreshData();
 		
-		CalendarView myAgenda = herbier.getAgenda();
-
 		Label progDay = new Label("Programme du jour :");
 		progDay.setFont(new Font("Arial",25));
 		progDay.setTextFill(Color.BLACK);
 		dayPlanning.getChildren().add(progDay);
-		dayPlanning.getChildren().add(myAgenda.getDayPage().getAgendaView());
+//		dayPlanning.getChildren().add(herbier.getAgenda().);
 		
 		
 		dayPlanning.setPadding(new Insets(10, 10, 10, 10));

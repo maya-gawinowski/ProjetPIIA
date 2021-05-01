@@ -2,9 +2,11 @@ package Plant;
 
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
-import java.util.Scanner; // Import the Scanner class to read text files
-import java.util.Arrays;
+// Import the Scanner class to read text files
 import java.util.*;
+
+import com.calendarfx.model.Entry;
+
 import java.lang.*;
 import java.io.*;
 public class Lecture {
@@ -21,8 +23,7 @@ public class Lecture {
 			String[] tab = new String[10];
 			noms = new ArrayList<String>();
 			Integer indice = 0;
-			//String filenamebis = "Text/"+filename;
-			System.out.println(filename);
+//			System.out.println(filename);
 			File myObj = new File("Text/"+filename);
 			Scanner myReader = new Scanner(myObj);
 			while (myReader.hasNextLine()) {
@@ -39,15 +40,16 @@ public class Lecture {
 	}
 
   
-public static void sortTabAsc(ArrayList<String> mots) {
-	//System.out.println("sortTab");
-	Collections.sort(mots);
-	//System.out.println(mots);
-}
-  
-public ArrayList<String> returnTab(){
-	return noms;
-}
-  
+	public static void sortTabAsc(ArrayList<String> mots) {
+		//System.out.println("sortTab");
+		Collections.sort(mots);
+		//System.out.println(mots);
+	}
+	  
+	public ArrayList<String> returnTab(){
+		return noms;
+	}
+	
+	  
 }
 

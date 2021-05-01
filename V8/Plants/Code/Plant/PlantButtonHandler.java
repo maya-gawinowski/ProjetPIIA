@@ -56,6 +56,8 @@ EventHandler<ActionEvent> {
 	private VBox menu,contenu;
 	private Scene scene;
 	private HBox box1;
+	
+	
 	public PlantButtonHandler(String n, Herbier h, VBox m, Scene s, VBox c, HBox b) {
 		this.nom=n;
 		this.monHerbier=h;

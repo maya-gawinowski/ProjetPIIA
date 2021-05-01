@@ -17,10 +17,8 @@ EventHandler<ActionEvent> {
 		afficheAjoutPlante();
 	 }
 	
-	private Herbier myHerbier;
 	private VBox contenu;
-	public AjoutPlanteHandler(Herbier h, VBox c) {
-		myHerbier = h;
+	public AjoutPlanteHandler(VBox c) {
 		contenu=c;
 		
 	}

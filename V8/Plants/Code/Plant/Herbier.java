@@ -3,34 +3,42 @@ package Plant;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.stage.Popup;
-import javafx.stage.Stage; 
-import javafx.scene.text.Font; 
-import javafx.geometry.Pos;
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.BackgroundFill;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.CalendarSource;
 import com.calendarfx.view.CalendarView;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 public class Herbier extends Application {
 	private VBox contenu = new VBox();
 	private Scene scene;
 	private VBox menu = new VBox();
 	private HBox box1  = new HBox();
-	private CalendarView agenda = new CalendarView();
+
+	private CalendarView agendaVue = new CalendarView();
+	private Calendar agenda = new Calendar("planning de l'herbier");
+    private CalendarSource agendaSource = new CalendarSource("source agenda");
+
 	
 	private ArrayList<ArrayList<String>> tableauCM = new ArrayList<ArrayList<String>>(); 
 	private ArrayList<ArrayList<String>> tableauKG = new ArrayList<ArrayList<String>>(); 
@@ -41,6 +49,10 @@ public class Herbier extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		myStage=primaryStage;
+		
+		//rajout des evenements dans l'agenda
+		prepAgenda();
+		
 		// BOITE PRINCIPALE
 		VBox root = new VBox();
 		root.setPrefSize(1800, 1000);
@@ -129,7 +141,7 @@ public class Herbier extends Application {
 		consPlante.setOnAction(hh);
 		
 		Button ajoutPlante = new Button("Ajouter");
-		AjoutPlanteHandler ap = new AjoutPlanteHandler(this,contenu);
+		AjoutPlanteHandler ap = new AjoutPlanteHandler(contenu);
 		ajoutPlante.setOnAction(ap);
 		
 		VBox actionPlante = new VBox();
@@ -151,6 +163,8 @@ public class Herbier extends Application {
 		root.getChildren().add(box2);
 		
 		
+		CloseStageHandler csh = new CloseStageHandler(this);
+		primaryStage.setOnCloseRequest(csh);
 		
 		primaryStage.setScene(scene);
 
@@ -159,15 +173,50 @@ public class Herbier extends Application {
 		
 	}
 	
+	
+	
+	
+
+	private void prepAgenda() {        
+        //on ajoute à l'agenda les element precedemment enregister dans le fichier "listeEvenement.txt"
+        AgendaHandler.prepListEvent("listeEvenements.txt", agenda);
+
+        //on ajoute l'évènement au calendrier
+        this.agendaSource.getCalendars().addAll(agenda);
+        this.agendaVue.getCalendarSources().setAll(agendaSource);
+	}
+
+
+
+
+
+	/**
+	 * @return the agendaSource
+	 */
+	public CalendarSource getAgendaSource() {
+		return agendaSource;
+	}
+
+
+	/**
+	 * @return the agendaVue
+	 */
+	public CalendarView getAgendaVue() {
+		return agendaVue;
+	}
+
+
+	/**
+	 * @return the agenda
+	 */
+	public Calendar getAgenda() {
+		return agenda;
+	}
+
+
+
+
 	// cette fonction affiche la liste des plantes
-	public void setAgenda(CalendarView a) {
-		this.agenda=a;
-	}
-	
-	public CalendarView getAgenda() {
-		return this.agenda;
-	}
-	
 	static int countOccurences(String str, String word)
 	{
 	    // split the string by spaces in a
