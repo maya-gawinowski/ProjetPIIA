@@ -1,15 +1,15 @@
-package Plant;
+package Plant2;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.io.File;
+
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.view.CalendarView;
-import javafx.stage.FileChooser;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -34,10 +34,11 @@ public class Herbier extends Application {
 	private Scene scene;
 	private VBox menu = new VBox();
 	private HBox box1  = new HBox();
-	
+
 	private CalendarView agendaVue = new CalendarView();
 	private Calendar agenda = new Calendar("planning de l'herbier");
     private CalendarSource agendaSource = new CalendarSource("source agenda");
+
 	
 	private ArrayList<ArrayList<String>> tableauCM = new ArrayList<ArrayList<String>>(); 
 	private ArrayList<ArrayList<String>> tableauKG = new ArrayList<ArrayList<String>>(); 
@@ -140,7 +141,7 @@ public class Herbier extends Application {
 		consPlante.setOnAction(hh);
 		
 		Button ajoutPlante = new Button("Ajouter");
-		AjoutPlanteHandler ap = new AjoutPlanteHandler(this,contenu,myStage);
+		AjoutPlanteHandler ap = new AjoutPlanteHandler(contenu);
 		ajoutPlante.setOnAction(ap);
 		
 		VBox actionPlante = new VBox();
@@ -162,6 +163,8 @@ public class Herbier extends Application {
 		root.getChildren().add(box2);
 		
 		
+		CloseStageHandler csh = new CloseStageHandler(this);
+		primaryStage.setOnCloseRequest(csh);
 		
 		primaryStage.setScene(scene);
 
@@ -170,6 +173,10 @@ public class Herbier extends Application {
 		
 	}
 	
+	
+	
+	
+
 	private void prepAgenda() {        
         //on ajoute à l'agenda les element precedemment enregister dans le fichier "listeEvenement.txt"
         AgendaHandler.prepListEvent("listeEvenements.txt", agenda);
@@ -178,7 +185,11 @@ public class Herbier extends Application {
         this.agendaSource.getCalendars().addAll(agenda);
         this.agendaVue.getCalendarSources().setAll(agendaSource);
 	}
-	
+
+
+
+
+
 	/**
 	 * @return the agendaSource
 	 */
@@ -201,7 +212,11 @@ public class Herbier extends Application {
 	public Calendar getAgenda() {
 		return agenda;
 	}
-	
+
+
+
+
+	// cette fonction affiche la liste des plantes
 	static int countOccurences(String str, String word)
 	{
 	    // split the string by spaces in a
@@ -226,7 +241,6 @@ public class Herbier extends Application {
 	
 	private TextField tfdate,tfdatemesure,tfvalmesure;
 	private TextArea tfNotes;
-	private PicHandlerForNotes ph;
 	private ComboBox<String> comboBox, comboMesure;
 	public void affichePopup(Popup popup, String namePlante,String bName) {
 		//System.out.println("COUCOU");
@@ -312,16 +326,6 @@ public class Herbier extends Application {
 			tfNotes = new TextArea();
 			tfNotes.selectRange(6, 9);
 			notes.getChildren().add(tfNotes);
-			
-			final FileChooser fileChooser = new FileChooser();
-			File defaultDirectory = new File("/Users/mayagawinowski/eclipse-workspace/Plants/Images");
-			fileChooser.setInitialDirectory(defaultDirectory);
-			Button buttPic = new Button("Choisissez une photo");
-			
-			ph = new PicHandlerForNotes(fileChooser,myStage,this, popup, namePlante, bName);
-			buttPic.setOnAction(ph);
-			notes.getChildren().add(buttPic);
-			
 			Button BNotes = new Button ("Valider");
 			notes.getChildren().add(BNotes);
 			ValidateHandler vh = new ValidateHandler(this, popup, namePlante, bName);
@@ -389,11 +393,6 @@ public class Herbier extends Application {
 			String date = tfdate.getText();
 			System.out.println("date : "+date);
 			
-			String pic = ph.getPicName();
-			System.out.println("my picname : "+pic);
-			
-			
-			//notes:date;2020/03/30*com;premières feuilles*photo;photo1.jpeg
 			int inddate;
 			try {
 				Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
@@ -404,11 +403,8 @@ public class Herbier extends Application {
 				inddate = 0;
 			}
 			
-			if(inddate!=0 && text.length()>0 && pic.length()==0) {
+			if(inddate!=0 && text.length()>0) {
 				phrase = "notes:date;"+date+"*com;"+result+Newligne;
-			}
-			else if(inddate!=0 && text.length()>0 && pic.length()>0) {
-				phrase = "notes:date;"+date+"*com;"+result+"*photo;"+pic+Newligne;
 			}
 			
 		}
@@ -443,3 +439,4 @@ public class Herbier extends Application {
 	}
 	
 }
+

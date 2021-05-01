@@ -14,3 +14,4 @@ mesures:2020/30/40;12 kg
 mesures:2021/03/30;25 kg
 recolte:2021/04/24
 mesures:2021/05/25;13 pH
+notes:date;2021/05/01*com;Premier mai
