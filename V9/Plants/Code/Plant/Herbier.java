@@ -404,10 +404,10 @@ public class Herbier extends Application {
 				inddate = 0;
 			}
 			
-			if(inddate!=0 && text.length()>0 && pic.length()==0) {
+			if(inddate!=0 && text.length()>0 && pic==null) {
 				phrase = "notes:date;"+date+"*com;"+result+Newligne;
 			}
-			else if(inddate!=0 && text.length()>0 && pic.length()>0) {
+			else if(inddate!=0 && text.length()>0 && pic!=null) {
 				phrase = "notes:date;"+date+"*com;"+result+"*photo;"+pic+Newligne;
 			}
 			

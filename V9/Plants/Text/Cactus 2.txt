@@ -2,3 +2,5 @@
 2:cacti
 image:Cacaoyer.jpeg
 notes:date;2021/05/01*com;premier mai*photo;photo1.jpeg
+notes:date;2021/05/02*com;test text
+notes:date;2021/05/03*com;test 2*photo;Capucine.jpeg
