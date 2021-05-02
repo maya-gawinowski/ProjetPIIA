@@ -38,16 +38,41 @@ public class Lecture {
 		}
 	}
 
-  
-public static void sortTabAsc(ArrayList<String> mots) {
-	//System.out.println("sortTab");
-	Collections.sort(mots);
-	//System.out.println(mots);
-}
-  
-public ArrayList<String> returnTab(){
-	return noms;
-}
+
+	public String readFilePlantation(String filename) {
+		try {
+			String temp = new String("");
+			File file = new File("Text/"+filename);
+			if(file.exists()) {
+				//on prend le contenu du fichier dans le temporisateur
+				Scanner myReader = new Scanner(file);
+				while (myReader.hasNextLine()) {
+					String data = myReader.nextLine();
+					temp = temp.concat(data);
+				}
+				myReader.close();
+				return temp;
+			}else {
+				System.out.println("Le fichier "+file.getName()+" est introuvable.");
+				return "";
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	
+	public static void sortTabAsc(ArrayList<String> mots) {
+		//System.out.println("sortTab");
+		Collections.sort(mots);
+		//System.out.println(mots);
+	}
+	  
+	public ArrayList<String> returnTab(){
+		return noms;
+	}
   
 }
 

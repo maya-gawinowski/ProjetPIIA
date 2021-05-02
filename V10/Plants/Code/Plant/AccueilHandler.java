@@ -1,5 +1,8 @@
 package Plant;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -22,7 +25,7 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 	
 	VBox aboutDay = new VBox();
 	VBox dayPlanning = new VBox();
-	VBox seasonAdvice = new VBox();
+	VBox SaisonAdvice = new VBox();
 	
 	VBox others = new VBox();
 	
@@ -53,7 +56,7 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 		
 		VBox aboutDay = new VBox();
 		VBox dayPlanning = new VBox();
-		VBox seasonAdvice = new VBox();
+		VBox SaisonAdvice = new VBox();
 		
 		VBox others = new VBox();
 		
@@ -78,18 +81,21 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 		advice.setPadding(new Insets(0,10,10,0));
 		advice.setFont(new Font("Arial",25));
 		advice.setTextFill(Color.BLACK);
-		seasonAdvice.getChildren().add(advice);
+		SaisonAdvice.getChildren().add(advice);
+
 		
-		seasonAdvice.setPadding(new Insets(10, 10, 10, 10));
-		seasonAdvice.setPrefSize(contenu.getWidth()/2, contenu.getHeight()/2);
-		seasonAdvice.setAlignment(Pos.TOP_CENTER);
-			
+		Label lSaisonAdviceLabel = new Label(infoSaison());
+		SaisonAdvice.setPadding(new Insets(10, 10, 10, 10));
+		SaisonAdvice.setPrefSize(contenu.getWidth()/2, contenu.getHeight()/2);
+		SaisonAdvice.setAlignment(Pos.TOP_CENTER);
+		SaisonAdvice.getChildren().add(lSaisonAdviceLabel);
+		
 			//boite de droite
 		aboutDay.setPadding(new Insets(20, 20, 20, 20));
 		aboutDay.setPrefSize(800, 900);
 		aboutDay.setAlignment(Pos.CENTER);
 		aboutDay.getChildren().add(dayPlanning);
-		aboutDay.getChildren().add(seasonAdvice);
+		aboutDay.getChildren().add(SaisonAdvice);
 
 		//PARTIE DROITE
 		Label info = new Label("Informations complémentaire :");
@@ -107,6 +113,48 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 		main.getChildren().add(others);
 		
 		contenu.getChildren().add(main);
+	}
+	
+	
+	private static Saison getSaison(Month m) {
+		switch (m) {
+		case JANUARY:
+			return Saison.HIVER;
+		case FEBRUARY:
+			return Saison.HIVER;
+		case MARCH:
+			return Saison.HIVER;
+		case APRIL:
+			return Saison.PRINTEMPS;
+		case MAY:
+			return Saison.PRINTEMPS;
+		case JUNE:
+			return Saison.PRINTEMPS;
+		case JULY:
+			return Saison.ETE;
+		case AUGUST:
+			return Saison.ETE;
+		case SEPTEMBER:
+			return Saison.ETE;
+		case OCTOBER:
+			return Saison.AUTOMNE;
+		case NOVEMBER:
+			return Saison.AUTOMNE;
+		case DECEMBER:
+			return Saison.AUTOMNE;
+		default:
+			return null;
+		}
+	}
+	
+	
+	private static String infoSaison() {
+		Month month = LocalDate.now().getMonth();
+		Saison saison = getSaison(month);
+		InfoPlantationsSaison prep = new InfoPlantationsSaison();
+		String info = "Nous sommes en "+saison.toString()+" voici les plantations associées à la saison : \n";
+		info = info.concat(prep.infoSurSaison(saison));
+		return info;
 	}
 }
 

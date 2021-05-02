@@ -13,6 +13,7 @@ public class CloseStageHandler implements EventHandler<WindowEvent> {
 
 	private Calendar calendar;
 	private String fichierSauvegarde = "listeEvenements.txt";
+	
 	public CloseStageHandler(Herbier h) {
 		if(h.getAgenda() == null) {
 			System.out.println("pas de calendrier!");
@@ -33,7 +34,6 @@ public class CloseStageHandler implements EventHandler<WindowEvent> {
 		}
 	}
 
-	
 
 	
 	private String inventaireEvenements() {

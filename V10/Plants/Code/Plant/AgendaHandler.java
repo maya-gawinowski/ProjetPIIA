@@ -3,6 +3,7 @@ package Plant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Entry;
@@ -35,13 +36,13 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 
 	
 	
-	
 	private void setAgendaVisible() {
 		this.contenu.getChildren().removeAll(contenu.getChildren());
 		contenu.getChildren().add(herbier.getAgendaVue());
 	}
 
 
+	
 	public static void prepListEvent(String nomFichier, Calendar agenda) {
 		String filename = nomFichier;
 		Lecture read = new Lecture(filename);
@@ -104,6 +105,13 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 			}
 			agenda.addEntry(entry);
 		}
+	}
+	
+	
+	public String dayPlanningToString(Calendar c){
+		List<Entry<?>> events = c.findEntries("");
+		
+		return "";
 	}
 	
 }

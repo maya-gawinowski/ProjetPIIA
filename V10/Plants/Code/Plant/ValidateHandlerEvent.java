@@ -59,7 +59,7 @@ public class ValidateHandlerEvent implements EventHandler<ActionEvent> {
 		    //enregistre l'heure de fin
 		  	String temp4[] = heureFin.getText().split("h", 2);
 		  	LocalTime timeEnd = LocalTime.of(Integer.valueOf(temp4[0]), Integer.valueOf(temp4[1]));
-		  	entry.changeStartTime(timeEnd);
+		  	entry.changeEndTime(timeEnd);
 			
 			entry.setLocation(location.getText());
 			
