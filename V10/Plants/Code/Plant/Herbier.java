@@ -51,6 +51,7 @@ public class Herbier extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		myStage=primaryStage;
+		myStage.setTitle("Plant's");
 
 		//rajout des evenements dans l'agenda
 		prepAgenda();
