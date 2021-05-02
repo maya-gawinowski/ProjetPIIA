@@ -3,7 +3,6 @@ package Plant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Entry;
 
 import javafx.event.ActionEvent;
@@ -30,35 +29,42 @@ public class ValidateHandlerEvent implements EventHandler<ActionEvent> {
 	}
 	
 
+
+
 	public void handle(ActionEvent event) {
 		popup.hide();
-		Entry<String> entry = new Entry<String>();
-		
-		entry.setTitle(titre.getText());
-
-		//enregistre la date de depart
-		String temp1[] = dateDebut.getText().split("/", 3);
-		LocalDate dateStart = LocalDate.of(Integer.valueOf(temp1[2]), Integer.valueOf(temp1[1]), Integer.valueOf(temp1[0]));   
-		entry.changeStartDate(dateStart);
-		
-		//enregistre la date de fin
-		String temp2[] = dateFin.getText().split("/", 3);
-		LocalDate dateEnd = LocalDate.of(Integer.valueOf(temp2[2]), Integer.valueOf(temp2[1]), Integer.valueOf(temp2[0]));   
-		entry.changeEndDate(dateEnd);
-		
-		
-		//enregistre l'heure de depart
-		String temp3[] = heureDebut.getText().split("h", 2);
-		LocalTime timeStart = LocalTime.of(Integer.valueOf(temp3[0]), Integer.valueOf(temp3[1]));
-	    entry.changeStartTime(timeStart);
-		
-	    //enregistre l'heure de fin
-	  	String temp4[] = heureFin.getText().split("h", 2);
-	  	LocalTime timeEnd = LocalTime.of(Integer.valueOf(temp4[0]), Integer.valueOf(temp4[1]));
-	  	entry.changeStartTime(timeEnd);
-		
-		entry.setLocation(location.getText());
-		
-		herbier.ajoutEvent(entry);
+		if(!titre.getText().isEmpty() && !dateDebut.getText().isEmpty() && !dateFin.getText().isEmpty()
+				&& !heureDebut.getText().isEmpty() && !heureFin.getText().isEmpty()) {
+			Entry<String> entry = new Entry<String>();
+			
+			
+			entry.setTitle(titre.getText());
+	
+			//enregistre la date de depart
+			String temp1[] = dateDebut.getText().split("/", 3);
+			LocalDate dateStart = LocalDate.of(Integer.valueOf(temp1[2]), Integer.valueOf(temp1[1]), Integer.valueOf(temp1[0]));   
+			entry.changeStartDate(dateStart);
+			
+			//enregistre la date de fin
+			String temp2[] = dateFin.getText().split("/", 3);
+			LocalDate dateEnd = LocalDate.of(Integer.valueOf(temp2[2]), Integer.valueOf(temp2[1]), Integer.valueOf(temp2[0]));   
+			entry.changeEndDate(dateEnd);
+			
+			
+			//enregistre l'heure de depart
+			String temp3[] = heureDebut.getText().split("h", 2);
+			LocalTime timeStart = LocalTime.of(Integer.valueOf(temp3[0]), Integer.valueOf(temp3[1]));
+		    entry.changeStartTime(timeStart);
+			
+		    //enregistre l'heure de fin
+		  	String temp4[] = heureFin.getText().split("h", 2);
+		  	LocalTime timeEnd = LocalTime.of(Integer.valueOf(temp4[0]), Integer.valueOf(temp4[1]));
+		  	entry.changeStartTime(timeEnd);
+			
+			entry.setLocation(location.getText());
+			
+			herbier.ajoutEvent(entry);
+		}
+			
 	 }
 }

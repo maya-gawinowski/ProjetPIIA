@@ -441,68 +441,15 @@ public class Herbier extends Application {
 		this.contenu = c;
 	}
 	
-	private TextField tfDateDebut,tfDateFin,tfHeureDebut, tfHeureFin, tfTitre, tfLocation;
-	public void affichePopupAddEvent() {
-		Popup p = new Popup();
-		if (!p.isShowing())
-            p.show(myStage);
-		
-		VBox a = new VBox();
-		a.setStyle( 
-	    "-fx-border-style: solid inside;" + 
-	    "-fx-border-width: 1;" +
-	    "-fx-border-color: green;");
-		a.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-	    a.setAlignment(Pos.BASELINE_CENTER);
-	        
-		Label titreBoite = new Label("Ajouter un nouvel evenement");
-		VBox event = new VBox();
-		
-		Label titreEvent = new Label("titre de l'evenement : ");
-		Label ldateDebut = new Label("date de debut : ");
-		Label ldateFin = new Label("date de fin : ");
-		Label lheureDebut = new Label("heure de debut : ");
-		Label lheureFin = new Label("heure de fin : ");
-		Label llocation = new Label("loclisation : ");
-		
-		
-		tfTitre = new TextField();
-		event.getChildren().add(titreEvent);
-		event.getChildren().add(tfTitre);
-		
-		tfDateDebut = new TextField();
-		event.getChildren().add(ldateDebut);
-		event.getChildren().add(tfDateDebut);
-		
-		tfDateFin = new TextField();
-		event.getChildren().add(ldateFin);
-		event.getChildren().add(tfDateFin);
-		
-		tfHeureDebut = new TextField();
-		event.getChildren().add(lheureDebut);
-		event.getChildren().add(tfHeureDebut);
-
-		tfHeureFin = new TextField();
-		event.getChildren().add(lheureFin);
-		event.getChildren().add(tfHeureFin);
-
-		tfLocation = new TextField();
-		event.getChildren().add(llocation);
-		event.getChildren().add(tfLocation);
-		
-		Button valid = new Button("Enregistrer");
-		ValidateHandlerEvent v = new ValidateHandlerEvent(this, p, tfTitre, tfDateDebut, tfDateFin, tfHeureDebut, tfHeureFin, tfLocation);
-		valid.setOnAction(v);
-			
-		a.getChildren().add(titreBoite);
-		a.getChildren().add(event);
-		a.getChildren().add(valid);
-			
-		p.getContent().add(a);
-		p.centerOnScreen();
-		
-	}
 	
+	
+
+	/**
+	 * @return the myStage
+	 */
+	public Stage getMyStage() {
+		return myStage;
+	}
 
 	public void ajoutEvent(Entry<String> entry) {
 		agenda.addEntry(entry);

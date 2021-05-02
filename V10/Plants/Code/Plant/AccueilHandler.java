@@ -103,10 +103,6 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 		others.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 
 		
-		
-		
-		
-
 		main.getChildren().add(aboutDay);
 		main.getChildren().add(others);
 		
