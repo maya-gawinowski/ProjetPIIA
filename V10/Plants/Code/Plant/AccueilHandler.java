@@ -16,19 +16,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public class AccueilHandler implements EventHandler<ActionEvent>{
 
 	Herbier herbier;
 	VBox contenu;
 
-	HBox main = new HBox();
 	
-	VBox aboutDay = new VBox();
-	VBox dayPlanning = new VBox();
-	VBox SaisonAdvice = new VBox();
-	
-	VBox others = new VBox();
 	
 	
 	
@@ -53,41 +48,38 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 		VBox contenu = herbier.getContenu();
 		contenu.getChildren().removeAll(contenu.getChildren());
 
-		HBox main = new HBox();
 		
-		VBox aboutDay = new VBox();
-		VBox dayPlanning = new VBox();
-		VBox SaisonAdvice = new VBox();
-		
-		VBox others = new VBox();
-		
-		//PARTIE GAUCHE
-			//boite en haut à gauche
-		
+		//PARTIE GAUCHE		
 		herbier.getAgendaVue().refreshData();
-		
-		dayPlanning.setPadding(new Insets(10, 10, 10, 10));
-		dayPlanning.setAlignment(Pos.CENTER);
-		dayPlanning.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-		
+
 		Label progDay = new Label("Programme du jour :");
+		progDay.setPadding(new Insets(20,20,20,20));
 		progDay.setFont(new Font("Arial",25));
 		progDay.setTextFill(Color.BLACK);
 		
 		String eventsOfTheDay = AgendaHandler.dayPlanningToString(herbier.getAgenda());
 		Text text = new Text(eventsOfTheDay);
+		text.setFont(new Font("Arial", 15));
+		text.setLineSpacing(10);
+		text.setWrappingWidth(500);
+		text.prefHeight(500);
+		text.setTextAlignment(TextAlignment.JUSTIFY);
 		
+		VBox dayPlanning = new VBox();
+		dayPlanning.setPadding(new Insets(10, 10, 10, 10));
+		dayPlanning.setAlignment(Pos.TOP_LEFT);
+		dayPlanning.setPrefSize(500, 900);
 		dayPlanning.getChildren().add(progDay);
 		dayPlanning.getChildren().add(text);
 		
 		
 			
-			//boite en bas à gauche
+		//PARTIE DROITE	
+
 		Label advice = new Label("Conseil du jour :");
-		advice.setPadding(new Insets(0,10,10,0));
+		advice.setPadding(new Insets(20,20,20,20));
 		advice.setFont(new Font("Arial",25));
 		advice.setTextFill(Color.BLACK);
-		SaisonAdvice.getChildren().add(advice);
 
 
 		Text tSaisonAdvice = new Text();
@@ -96,35 +88,32 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 		tSaisonAdvice.setLineSpacing(10);
 		tSaisonAdvice.setWrappingWidth(700);
 		tSaisonAdvice.setText(infoSaison());
-		SaisonAdvice.setPadding(new Insets(10, 10, 10, 10));
+		
+
+		VBox SaisonAdvice = new VBox();
+		SaisonAdvice.setPadding(new Insets(10, 10, 0, 50));
 		SaisonAdvice.setMaxSize(contenu.getWidth()/2, contenu.getHeight()/2);
 		SaisonAdvice.setAlignment(Pos.TOP_CENTER);
+		SaisonAdvice.getChildren().add(advice);
 		SaisonAdvice.getChildren().add(tSaisonAdvice);
 		
-			//boite de droite
-		aboutDay.setPadding(new Insets(20, 20, 20, 20));
-		aboutDay.setPrefSize(800, 900);
-		aboutDay.setAlignment(Pos.CENTER);
-		aboutDay.getChildren().add(dayPlanning);
-		aboutDay.getChildren().add(SaisonAdvice);
-
-		//PARTIE DROITE
-		Label info = new Label("Informations complémentaire :");
-		info.setFont(new Font("Arial",25));
-		info.setTextFill(Color.BLACK);
-		others.getChildren().add(info);
 		
-		others.setPadding(new Insets(20, 20, 20, 20));
-		others.setPrefSize(800, 900);
-		others.setAlignment(Pos.CENTER);
-		others.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-
 		
-		main.getChildren().add(aboutDay);
-		main.getChildren().add(others);
+
+		HBox main= new HBox();
+		main.setPadding(new Insets(20, 0, 0, 120));
+		main.setPrefSize(contenu.getWidth(), contenu.getHeight());
+		main.setAlignment(Pos.TOP_LEFT);
+		main.getChildren().add(dayPlanning);
+		main.getChildren().add(SaisonAdvice);
 		
 		contenu.getChildren().add(main);
 	}
+	
+	
+	
+	
+	
 	
 	
 	private static Saison getSaison(Month m) {
