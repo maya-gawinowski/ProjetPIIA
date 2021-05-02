@@ -38,8 +38,7 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 	
 	private void setAgendaVisible() {
 		this.contenu.getChildren().removeAll(contenu.getChildren());
-		this.contenu.getChildren().add(herbier.getAgendaVue());
-		
+		contenu.getChildren().add(herbier.getAgendaVue());
 	}
 
 

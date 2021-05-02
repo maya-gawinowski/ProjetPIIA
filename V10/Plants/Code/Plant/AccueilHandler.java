@@ -37,13 +37,25 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 
 	@Override
 	public void handle(ActionEvent arg0) {
-		main.getChildren().removeAll(main.getChildren());
+		afficheAccueil(this.herbier);
+		
+	}
+	
+	
+	
+	
+	public static void afficheAccueil(Herbier herbier) {
+		
+		VBox contenu = herbier.getContenu();
 		contenu.getChildren().removeAll(contenu.getChildren());
-		aboutDay.getChildren().removeAll(aboutDay.getChildren());
-		dayPlanning.getChildren().removeAll(dayPlanning.getChildren());
-		seasonAdvice.getChildren().removeAll(seasonAdvice.getChildren());
-		others.getChildren().removeAll(others.getChildren());
 
+		HBox main = new HBox();
+		
+		VBox aboutDay = new VBox();
+		VBox dayPlanning = new VBox();
+		VBox seasonAdvice = new VBox();
+		
+		VBox others = new VBox();
 		
 		//PARTIE GAUCHE
 			//boite en haut à gauche

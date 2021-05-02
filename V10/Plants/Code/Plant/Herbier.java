@@ -164,7 +164,7 @@ public class Herbier extends Application {
 		root.getChildren().add(box1);
 		root.getChildren().add(box2);
 		
-		
+		AccueilHandler.afficheAccueil(this);
 		
 		primaryStage.setScene(scene);
 		

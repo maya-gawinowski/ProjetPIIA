@@ -1,2 +1,0 @@
-dateDebut:2021-05-02/heureDebut:00:45/dateFin:2021-05-02/heureFin:13:00/titre:momo/location:Orsay
-dateDebut:2021-05-02/heureDebut:06:15/dateFin:2021-05-02/heureFin:07:15/titre:New Entry 2/location:null
