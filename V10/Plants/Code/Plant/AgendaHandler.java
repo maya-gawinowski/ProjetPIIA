@@ -108,10 +108,34 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 	}
 	
 	
-	public String dayPlanningToString(Calendar c){
+	public static String dayPlanningToString(Calendar c){
+		ArrayList<String> eventOfTheDay = new ArrayList<String>();
 		List<Entry<?>> events = c.findEntries("");
+		for(Entry<?> e : events) {
+			if(e.getStartDate().equals(LocalDate.now())) {
+				String titreEvent = e.getTitle();
+				String heureDebut = String.valueOf(e.getStartTime().getHour());
+				String minuteDebut = String.valueOf(e.getStartTime().getMinute());
+				String event = heureDebut+"h"+minuteDebut+" : "+titreEvent;
+				if((e.getLocation() != null) && !(e.getLocation().isBlank())){
+					String lieu = e.getLocation();
+					event = event.concat(" a "+lieu);
+				}
+				eventOfTheDay.add(event);
+			}
+		}
 		
-		return "";
+		String listEventToString = "Vous n'avez rien de prévu aujourd'hui.";
+		
+		if(!eventOfTheDay.isEmpty()) {
+			listEventToString = "";
+			for(int i = 0; i < eventOfTheDay.size(); i++) {
+				String currentEvent = eventOfTheDay.get(i);
+				listEventToString = listEventToString.concat(currentEvent+"\n");
+			}
+		}
+		c.addEntries(events);
+		return listEventToString;
 	}
 	
 }

@@ -1,0 +1,3 @@
+dateDebut:2021-05-03/heureDebut:17:15/dateFin:2021-05-03/heureFin:18:15/titre:New Entry 3/location:
+dateDebut:2021-05-02/heureDebut:16:00/dateFin:2021-05-02/heureFin:17:00/titre:New Entry 2/location: 
+dateDebut:2021-05-02/heureDebut:19:45/dateFin:2021-05-02/heureFin:20:45/titre:New Entry 3/location:Orsay

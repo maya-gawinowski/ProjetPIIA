@@ -1,15 +1,15 @@
 package Plant;
 
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import java.util.ArrayList;
-import java.util.Arrays;
-import javafx.scene.Scene;
 
 public class HerbierHandler implements
 EventHandler<ActionEvent> {

@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class AccueilHandler implements EventHandler<ActionEvent>{
 
@@ -65,16 +66,21 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 		
 		herbier.getAgendaVue().refreshData();
 		
-		Label progDay = new Label("Programme du jour :");
-		progDay.setFont(new Font("Arial",25));
-		progDay.setTextFill(Color.BLACK);
-		dayPlanning.getChildren().add(progDay);
-//		dayPlanning.getChildren().add(herbier.getAgenda().);
-		
-		
 		dayPlanning.setPadding(new Insets(10, 10, 10, 10));
 		dayPlanning.setAlignment(Pos.CENTER);
 		dayPlanning.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+		
+		Label progDay = new Label("Programme du jour :");
+		progDay.setFont(new Font("Arial",25));
+		progDay.setTextFill(Color.BLACK);
+		
+		String eventsOfTheDay = AgendaHandler.dayPlanningToString(herbier.getAgenda());
+		Text text = new Text(eventsOfTheDay);
+		
+		dayPlanning.getChildren().add(progDay);
+		dayPlanning.getChildren().add(text);
+		
+		
 			
 			//boite en bas à gauche
 		Label advice = new Label("Conseil du jour :");
@@ -83,12 +89,17 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 		advice.setTextFill(Color.BLACK);
 		SaisonAdvice.getChildren().add(advice);
 
-		
-		Label lSaisonAdviceLabel = new Label(infoSaison());
+
+		Text tSaisonAdvice = new Text();
+		tSaisonAdvice.setFont(new Font("Arial", 15));
+		tSaisonAdvice.setFill(Color.DARKGREEN);
+		tSaisonAdvice.setLineSpacing(10);
+		tSaisonAdvice.setWrappingWidth(700);
+		tSaisonAdvice.setText(infoSaison());
 		SaisonAdvice.setPadding(new Insets(10, 10, 10, 10));
-		SaisonAdvice.setPrefSize(contenu.getWidth()/2, contenu.getHeight()/2);
+		SaisonAdvice.setMaxSize(contenu.getWidth()/2, contenu.getHeight()/2);
 		SaisonAdvice.setAlignment(Pos.TOP_CENTER);
-		SaisonAdvice.getChildren().add(lSaisonAdviceLabel);
+		SaisonAdvice.getChildren().add(tSaisonAdvice);
 		
 			//boite de droite
 		aboutDay.setPadding(new Insets(20, 20, 20, 20));
@@ -152,7 +163,7 @@ public class AccueilHandler implements EventHandler<ActionEvent>{
 		Month month = LocalDate.now().getMonth();
 		Saison saison = getSaison(month);
 		InfoPlantationsSaison prep = new InfoPlantationsSaison();
-		String info = "Nous sommes en "+saison.toString()+" voici les plantations associées à la saison : \n";
+		String info = "Nous sommes au "+saison.toString()+" voici les recommandations associées à la saison : \n";
 		info = info.concat(prep.infoSurSaison(saison));
 		return info;
 	}

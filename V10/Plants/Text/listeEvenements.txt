@@ -1,0 +1,2 @@
+dateDebut:2021-05-02/heureDebut:16:00/dateFin:2021-05-02/heureFin:17:00/titre:New Entry 2/location:
+dateDebut:2021-05-02/heureDebut:19:30/dateFin:2021-05-02/heureFin:20:30/titre:New Entry 1/location:

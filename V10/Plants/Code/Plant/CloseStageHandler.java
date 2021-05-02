@@ -54,9 +54,12 @@ public class CloseStageHandler implements EventHandler<WindowEvent> {
 			temp = temp.concat("/heureFin:"+ e.getEndTime().toString());
 			//on prend le titre de l'evenement et on l'ajoute au temporisateur
 			temp = temp.concat("/titre:"+ e.getTitle());
-			//on prend l'endroit de l'evenement et on l'ajoute au temporisateur
-			temp = temp.concat("/location:"+ e.getLocation());
 			
+			//on prend l'endroit de l'evenement et on l'ajoute au temporisateur
+			temp = temp.concat("/location:");
+			if(e.getLocation() != null) {
+				temp = temp.concat(e.getLocation());
+			}
 			//l'enregistrement de l'evenement est fait, reste à changer de ligne 
 			temp = temp.concat("\n");
 			
