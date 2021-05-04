@@ -40,6 +40,14 @@ public class Lecture {
 		}
 	}
 
+	
+	
+	/**
+	 * lie l'intégralité du fichier et renvoie le texte dans
+	 * une seule chaines de caractères
+	 * @param filename le nom du fichier
+	 * @return une chaine de caractère contenant l'intégralité du fichier
+	 */
 	public String readFilePlantation(String filename) {
 		try {
 			String temp = new String("");
@@ -49,6 +57,7 @@ public class Lecture {
 				Scanner myReader = new Scanner(file);
 				while (myReader.hasNextLine()) {
 					String data = myReader.nextLine();
+					//on ajoute chaque ligne au temporisateur
 					temp = temp.concat(data);
 				}
 				myReader.close();
