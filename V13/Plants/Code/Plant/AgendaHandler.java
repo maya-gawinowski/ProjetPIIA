@@ -1,3 +1,5 @@
+/* Projet PIIA : Circé Carletti / Maya Gawinowski */
+
 package Plant;
 
 import java.time.LocalDate;
@@ -21,11 +23,6 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 	public AgendaHandler(Herbier H, VBox C) {
 		herbier = H;
 		contenu = C;
-		herbier.getAgendaVue().setShowAddCalendarButton(false);
-		herbier.getAgendaVue().setShowPrintButton(false);
-		herbier.getAgendaVue().setShowSourceTray(false);
-		herbier.getAgendaVue().setShowSourceTrayButton(false);
-		herbier.getAgendaVue().setShowToday(true);
 	}
 	
 
@@ -40,14 +37,22 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 	}
 
 	
-	
+	/**
+	 * affiche l'agenda dans le panneau contenu
+	 * de notre herbier
+	 */
 	private void setAgendaVisible() {
 		this.contenu.getChildren().removeAll(contenu.getChildren());
 		contenu.getChildren().add(herbier.getAgendaVue());
 	}
 
 
-	
+	/**
+	 * recupere les précédents évènements enregistrer dans un
+	 * fichier pour les ajouter aux évènemenent de notre agenda
+	 * @param nomFichier le nom du fichier où les évènement sont enregistrés
+	 * @param agenda le Calendar dans lequel on souhaite ajouter nos évènement
+	 */
 	public static void prepListEvent(String nomFichier, Calendar agenda) {
 		String filename = nomFichier;
 		Lecture read = new Lecture(filename);
@@ -66,7 +71,6 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 					
 					//on lit et enregistre la date de depart
 					String temp[] = caracEvent[caracIdx].split("dateDebut:",2);
-//					System.out.println("Voici la date de debut de l'event : "+temp[1]);
 					LocalDate dateStart = LocalDate.parse(temp[1]);   
 					entry.changeStartDate(dateStart);
 					
@@ -74,7 +78,6 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 					
 					//on lit et enregistre la date de fin
 					String temp[] = caracEvent[caracIdx].split("dateFin:",2);
-//					System.out.println("Voici la date de fin de l'event : "+temp[1]);
 					LocalDate dateEnd = LocalDate.parse(temp[1]);   
 					entry.changeEndDate(dateEnd);
 					
@@ -82,7 +85,6 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 					
 					//on lit et enregistre l'heure de depart
 					String temp[] = caracEvent[caracIdx].split("heureDebut:",2);
-//					System.out.println("Voici l'heure de debut de l'event : "+temp[1]);
 					LocalTime timeStart = LocalTime.parse(temp[1]);
 			        entry.changeStartTime(timeStart);
 
@@ -90,7 +92,6 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 					
 					//on lit et enregistre l'heure de fin
 					String temp[] = caracEvent[caracIdx].split("heureFin:",2);
-//					System.out.println("Voici l'heure de fin de l'event : "+temp[1]);
 					LocalTime timeEnd = LocalTime.parse(temp[1]);
 			        entry.changeEndTime(timeEnd);
 
@@ -102,21 +103,32 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 					
 				}else if(caracEvent[caracIdx].contains("location:")){
 					
-					//on lit et enregistre l'endroit de l'evenement s'il est different de "none"
+					//on lit et enregistre l'endroit de l'evenement
 					String temp[] = caracEvent[caracIdx].split("location:",2);
 					entry.setLocation(temp[1]);
 					
 				}
 			}
+			//on ajoute l'evenement a notre calendrier
 			agenda.addEntry(entry);
 		}
 	}
 	
-	
+	/**
+	 * Recherche et retourne les evenement de la journée
+	 * @param c le calendrier ciblé
+	 * @return la chaine de caractère decrivant les evenements prévus pour la journée
+	 */
 	public static String dayPlanningToString(Calendar c){
+		
 		ArrayList<String> eventOfTheDay = new ArrayList<String>();
+		//events  répertorie l'integralité des évènement de notre calendrier
 		List<Entry<?>> events = c.findEntries("");
+		
 		for(Entry<?> e : events) {
+			//on vérifie si l'évenement est prévue pour la journée actuelle 
+			//et on l'ajoute à notre liste d'evenement de la journée si 
+			//c'est le cas.
 			if(e.getStartDate().equals(LocalDate.now())) {
 				String titreEvent = e.getTitle();
 				String heureDebut = String.valueOf(e.getStartTime().getHour());
@@ -130,6 +142,8 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 			}
 		}
 		
+		//on instancie la chaine de caractere à renvoyer et on la modifie avec
+		//les informations des évènements s'il en existe
 		String listEventToString = "Vous n'avez rien de prévu aujourd'hui.";
 		
 		if(!eventOfTheDay.isEmpty()) {
@@ -139,7 +153,6 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 				listEventToString = listEventToString.concat(currentEvent+"\n");
 			}
 		}
-		c.addEntries(events);
 		return listEventToString;
 	}
 	

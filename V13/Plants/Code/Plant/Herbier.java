@@ -1,3 +1,5 @@
+/* Projet PIIA : Circé Carletti / Maya Gawinowski */
+
 package Plant;
 
 import java.io.File;
@@ -32,6 +34,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
+/*
+ * Cette classe est la classe principale de notre code
+ * Elle contient :
+ * - le Main
+ * - la structure de la fenetre 
+ * - des fonctions d'affichage d'éléments
+ */
+
 public class Herbier extends Application {
 	private VBox contenu = new VBox();
 	private Scene scene;
@@ -51,7 +61,7 @@ public class Herbier extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		myStage=primaryStage;
-		myStage.setTitle("Plan't");
+		myStage.setTitle("Plant's");
 
 		//rajout des evenements dans l'agenda
 		prepAgenda();
@@ -176,6 +186,10 @@ public class Herbier extends Application {
 		
 	}
 	
+	/*
+	 * se charge de préparer notre agenda à l'ouverture de l'application en lui 
+	 * rajoutant les évènement enregistrer précédemment
+	 */
 	private void prepAgenda() {        
         //on ajoute à l'agenda les element precedemment enregister dans le fichier "listeEvenement.txt"
         AgendaHandler.prepListEvent("listeEvenements.txt", agenda);
@@ -229,16 +243,20 @@ public class Herbier extends Application {
 	
 	
 	
-	
+	/*
+	 * Cette fonction permet l'affichage d'une popup pour ajouter des informations à la fiche d'une plante
+	 */
 	private TextField tfdate,tfdatemesure,tfvalmesure;
 	private TextArea tfNotes;
 	private PicHandlerForNotes ph;
 	private ComboBox<String> comboBox, comboMesure;
 	public void affichePopup(Popup popup, String namePlante,String bName) {
-		//System.out.println("COUCOU");
+		
+		// On rend la popup visible
 		if (!popup.isShowing())
             popup.show(myStage);
 		
+		// POPUP AJOUT DE DATE
 		if(bName=="Date") {
 			VBox a = new VBox();
 			a.setStyle( 
@@ -247,18 +265,26 @@ public class Herbier extends Application {
 	                "-fx-border-color: green;");
 			a.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 	        a.setAlignment(Pos.BASELINE_CENTER);
+	        
 			Label titre = new Label("Ajouter une nouvelle date");
+			
+			// Date 
 			HBox date = new HBox();
 			Label ldate = new Label("Date : ");
 			tfdate = new TextField();
 			date.getChildren().add(ldate);
 			date.getChildren().add(tfdate);
+			
+			// Choix du type de date (plantation, arrosage, entretien, rempotage, recolte)
 			comboBox = new ComboBox<String>();
 	        comboBox.getItems().addAll("plantation","arrosage","entretien","rempotage","recolte");
 	        comboBox.setPromptText("type");
+	        
+	        // Bouton valider
 			Button bdate = new Button("Valider");
 			ValidateHandler v = new ValidateHandler(this,popup,namePlante,bName);
 			bdate.setOnAction(v);
+			
 			a.getChildren().add(titre);
 			a.getChildren().add(ldate);
 			a.getChildren().add(tfdate);
@@ -267,6 +293,7 @@ public class Herbier extends Application {
 			
 			popup.getContent().add(a);
 		}
+		// POPUP AJOUT DE MESURES
 		if(bName=="Mesure") {
 			VBox a = new VBox();
 			a.setStyle( 
@@ -275,30 +302,41 @@ public class Herbier extends Application {
 	                "-fx-border-color: green;");
 			a.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 	        a.setAlignment(Pos.BASELINE_CENTER);
+	        
 	        Label titre = new Label("Ajouter Mesure");
 	        a.getChildren().add(titre);
+	        
+	        // Date de la mesure
 	        HBox dateMesure = new HBox();
 	        Label dadate = new Label("Date : ");
 	        tfdatemesure = new TextField();
 	        dateMesure.getChildren().add(dadate);
 	        dateMesure.getChildren().add(tfdatemesure);
 	        a.getChildren().add(dateMesure);
+	        
+	        // Valeur de la mesure
 	        HBox valMesure = new HBox();
 	        Label vaval = new Label("Valeur : ");
 	        tfvalmesure = new TextField();
 	        valMesure.getChildren().add(vaval);
 	        valMesure.getChildren().add(tfvalmesure);
 	        a.getChildren().add(valMesure);
+	        
+	        // Choix de l'unité de mesure
 	        comboMesure = new ComboBox<String>();
 	        comboMesure.getItems().addAll("cm","kg","pH");
 	        comboMesure.setPromptText("Unité de mesure");
 	        a.getChildren().add(comboMesure);
+	        
+	        // Bouton valider
 	        Button bmesure = new Button("Valider");
 	        a.getChildren().add(bmesure);
 	        ValidateHandler vh = new ValidateHandler(this,popup,namePlante,bName);
 	        bmesure.setOnAction(vh);
+	        
 	        popup.getContent().add(a);
 		}
+		// POPUP AJOUT DE NOTES ET OBSERVATIONS
 		if(bName=="Notes") {
 			VBox notes = new VBox();
 			notes.setStyle( 
@@ -306,56 +344,73 @@ public class Herbier extends Application {
 	                "-fx-border-width: 1;" +
 	                "-fx-border-color: green;");
 			notes.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-	        //notes.setAlignment(Pos.BASELINE_CENTER);
+	        
 	        Label titre = new Label("Ajouter Notes et Observations");
+	        notes.getChildren().add(titre);
+	        
+	        // Date de la note
 	        HBox date = new HBox();
 			Label ldate = new Label("Date : ");
 			tfdate = new TextField();
 			date.getChildren().add(ldate);
 			date.getChildren().add(tfdate);
-	        notes.getChildren().add(titre);
 	        notes.getChildren().add(date);
+	        
+	        // Text de la note
 			tfNotes = new TextArea();
 			tfNotes.selectRange(6, 9);
 			notes.getChildren().add(tfNotes);
 			
+			// Définition de l'objet permettant d'ouvrir le gestionnaire de fichier pour choisir une image
 			final FileChooser fileChooser = new FileChooser();
-			File defaultDirectory = new File("/Users/mayagawinowski/eclipse-workspace/Plants/Images");
+			File defaultDirectory = new File("/Users/mayagawinowski/eclipse-workspace/Plants/Images"); // initialisation du dossier sur lequel s'ouvrira le gestionnaire de fichier
 			fileChooser.setInitialDirectory(defaultDirectory);
-			Button buttPic = new Button("Choisissez une photo");
-			
+			// Bouton pour choisir une photo
+			Button buttonPic = new Button("Choisissez une photo");
 			ph = new PicHandlerForNotes(fileChooser,myStage,this, popup, namePlante, bName);
-			buttPic.setOnAction(ph);
-			notes.getChildren().add(buttPic);
+			buttonPic.setOnAction(ph);
+			notes.getChildren().add(buttonPic);
 			
+			// Bouton valider
 			Button BNotes = new Button ("Valider");
 			notes.getChildren().add(BNotes);
 			ValidateHandler vh = new ValidateHandler(this, popup, namePlante, bName);
 			BNotes.setOnAction(vh);
+			
 			popup.getContent().add(notes);
 		}
 		
 	}
 	
+	/*
+	 * Cette fonction appelé depuis ValidateHandler permet de récupérer le contenu de la popup saisi par l'utilisateur
+	 * afin d'ensuite écrire une nouvelle ligne dans le fichier de la plante
+	 */
 	public void getSentence(Popup p,String name,String bName) {
-		p.hide();
+		p.hide(); // on cache la popup
+		
 		String phrase = new String();
-		String Newligne=System.getProperty("line.separator");
+		String Newligne=System.getProperty("line.separator"); // permet d'insérer des sauts de ligne à la fin de la String à écrire 
+		
+		// Récupération des informations de la popup d'ajout de Dates
 		if(bName=="Date") {
+			// on récupère les valeurs
 			String date = tfdate.getText();
 			String type = comboBox.getValue();
 			String newSentence = type+":"+date;
 			System.out.println("GET SENTENCE");
 			int inddate;
+			// on vérifie que le format de la date entrée correspond au format année/mois/jour
 			try {
 				Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
 				inddate=1;
 				
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				inddate = 0;
 			}
-			
+			// si le format de la date est bon et que l'utilisateur a bien choisi un type de date, alors on crée une string au format
+			// typeDeDate:valeurDeLaDate
+			// exemple : plantation:2021/05/01
 			if(type!=null && inddate!=0 && date.length()==10) {
 				if (date.length()==10) {					
 					phrase = newSentence+Newligne;
@@ -363,62 +418,67 @@ public class Herbier extends Application {
 				}
 			}
 		}
+		// Récupération des informations de la popup d'ajout de Mesures
 		if(bName=="Mesure") {
+			// On récupère les valeurs
 			String date = tfdatemesure.getText();
 			String value = tfvalmesure.getText();
 			String unit = comboMesure.getValue();
 			int val;
 			int inddate;
+			// on vérifie que la valeur de la mesure entrée par l'utilisateur est bien convertible en Integer
 			try {
 	    	    val = Integer.parseInt((String) value);
 	    	  } catch (NumberFormatException nfe) {
-	    	    val = 0; // or null if that is your preference
+	    	    val = 0; 
 	    	  }
+			// On vérifie que la date de la mesure est au bon format
 	    	try {
 				Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
 				inddate = 1;
 				
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				inddate = 0;
 			}
+	    	// si le format de la date est correct, la valeur est un Int et l'unité de mesure n'est pas null, alors on crée une string au format
+	    	// mesures:valeurDeLaDate;valeurDeLaMesure unitéDeMesure
+	    	// Exemple : mesures:2021/05/01;14 cm
 	    	if(val!=0  && inddate!=0 && unit!=null) {
 	        	phrase = "mesures:"+date+";"+val+" "+unit+Newligne;
 	    	}
 		}
-		
+		// Récupération des informations de la popup d'ajout des mesures
 		if (bName=="Notes") {
+			// on récupère les valeurs
 			String text = tfNotes.getText();
 			String result = text.replaceAll("\n"," ");
-			System.out.println(result);
-			
 			String date = tfdate.getText();
-			System.out.println("date : "+date);
-			
 			String pic = ph.getPicName();
-			System.out.println("my picname : "+pic);
-			
-			
-			//notes:date;2020/03/30*com;premières feuilles*photo;photo1.jpeg
+
 			int inddate;
+			// On vérifie que la date de la note est au bon format
 			try {
 				Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
 				inddate = 1;
 				
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				inddate = 0;
 			}
-			
+			// la date est au bon format, le text saisi est existant et l'utilisateur n'a pas choisi de photo, alors on crée une string au format
+			// notes:date;valeurDeLaDate*com;TextSansLesRetoursALaLigne
+			// Exemple : notes:date;2021/05/01*com;Nouvelles feuilles
 			if(inddate!=0 && text.length()>0 && pic==null) {
 				phrase = "notes:date;"+date+"*com;"+result+Newligne;
 			}
+			// la date est au bon format, le text saisi est existant et l'utilisateur a choisi une photo, alors on crée une string au format
+			// notes:date;valeurDeLaDate*com;TextSansLesRetoursALaLigne*photo;nomDeLaPhoto
+			// Exemple : notes:date;2021/05/01*com;Nouvelles feuilles*photo:plante.png
 			else if(inddate!=0 && text.length()>0 && pic!=null) {
 				phrase = "notes:date;"+date+"*com;"+result+"*photo;"+pic+Newligne;
 			}
-			
 		}
 		
+		// ECRITURE DE LA STRING CREE
 		Ecriture e = new Ecriture();
 		try {
 			e.ecrire(name+".txt", phrase);
@@ -426,7 +486,8 @@ public class Herbier extends Application {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		//String n, Herbier h, VBox m, Scene s, VBox c, HBox b
+		
+		// On met à jour l'affichage en rechargant la page pour que les nouvelles informations apparaissent directement après validation 
 		PlantButtonHandler pbh = new PlantButtonHandler(name, this, menu, scene, contenu, box1);
 		pbh.prepInfos();
 	}
@@ -452,6 +513,9 @@ public class Herbier extends Application {
 		return myStage;
 	}
 
+	/*
+	 * ajoute un evenement à notre calendrier
+	 */
 	public void ajoutEvent(Entry<String> entry) {
 		agenda.addEntry(entry);
 	}
