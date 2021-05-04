@@ -1,6 +1,8 @@
 # ProjetPIIA
 
-## Contenu du répertoire :
+## Circé Carletti & Maya Gawinowski
+
+### Contenu du répertoire :
 
 * Un dossier Plants : il s'agit du projet eclipse dans lequel est stocker tout le code de notre projet. <br> Il contient :
   * un dossier source Code contenant tout le code Java
