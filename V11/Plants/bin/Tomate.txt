@@ -1,3 +1,0 @@
-1:Tomate
-2:toto
-image:Capucine.jpeg
