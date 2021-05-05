@@ -27,5 +27,5 @@ mesures:2021/05/25;12 kg
 mesures:2021/06/12;23 pH
 mesures:2021/07/23;12 kg
 mesures:2021/05/23;45 cm
-notes:date;2021/04/28*com;coucou
-notes:date;2021/04/27*com;coucou2
+notes:date;2021/04/28*com;feuilles
+notes:date;2021/04/27*com;feuilles2
