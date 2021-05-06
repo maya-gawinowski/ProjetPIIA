@@ -23,6 +23,9 @@ public class AgendaHandler implements EventHandler<ActionEvent>{
 	public AgendaHandler(Herbier H, VBox C) {
 		herbier = H;
 		contenu = C;
+		herbier.getAgendaVue().setShowAddCalendarButton(false);
+		herbier.getAgendaVue().setShowPrintButton(false);
+		herbier.getAgendaVue().setShowDeveloperConsole(false);	
 	}
 	
 
